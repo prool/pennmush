@@ -2642,6 +2642,7 @@ welcome_user(DESC *d, int telnet)
 static void
 save_command(DESC *d, char *command)
 {
+  //printf("prool debug message command='%s'\r\n", command); // prool
   if (d->conn_flags & CONN_UTF8) {
     char *latin1;
     int llen;
@@ -2669,7 +2670,7 @@ save_command(DESC *d, char *command)
   } else {
     char *c;
     for (c = command; *c; c += 1) {
-      if (!char_isprint(*c)) {
+      if (0/*!char_isprint(*c)*/) { // prool: dirty hack: forced full 8 bit UTF-8
         *c = '?';
       }
     }
